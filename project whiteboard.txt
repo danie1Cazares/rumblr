@@ -1,0 +1,32 @@
+--> Watch git crash course
+
+come up with name for instagram clone
+-RumblR
+
+create logo or circle back later for logo
+-saved to folder
+
+Create rough project stucture, plan of attack (order of things to work on), pseudo code
+
+
+PROJECT STRUCTURE:
+
+INSTAGRAM CLONE ->
+    CLIENT ->
+    SERVER ->
+
+
+
+PLAN OF ATTACK:
+
+-Work on skeleton front end first
+    --> Log in page
+    -sidebar nav component
+    -user feed component (with recent | following tabs?)
+    -latest users | most followed or profile | suggested for you component
+
+    *break down components deeper after above is completed
+-Create backend and then db
+-Polish front end
+
+

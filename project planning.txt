@@ -1,0 +1,43 @@
+*You’ll be building a clone of a social media site, such as Facebook, X, Myspace, or Threads
+ 
+ *How much effort you want to put into the styling and front end is up to you
+ 
+ *You’ll put together the core features of the platform like users, profiles, posts, following, and “liking”.
+
+ *You’ll also implement some form of authentication. Ideally, you’ll want to use passport.js to support authenticating via the social media site you’re cloning (you can also use passport.js to support authenticating via username and password with passport-local or via Github with passport-github2.)
+
+
+*identify the site’s core functionality and the “nice-to-have” stuff.
+
+*Think through the data architecture required to make this work. There are lots of models and the relationship between them is more complicated than anything you’ve done before.
+
+*You can populate data like users and posts with fake data using the Faker module from npm. To accomplish this create a new JavaScript file named seeds.js which imports your Prisma models and uses the faker module to generate and save a bunch of new users.
+
+
+REQUIREMENTS:
+
+-Users must sign in to see anything except the sign-in page.
+-Users should be able to sign in using your chosen authentication method.
+-Users can send follow requests to other users.
+-Users can create posts (begin with text only).
+-Users can like posts.
+-Users can comment on posts.
+-Posts should always display the post content, author, comments, and likes.
+-There should be an index page for posts, which shows all the recent posts from the current user and users they are following.
+-Users can create a profile with a profile picture. Depending on how you handle authentication, for example via passport-github2, you may be able to use their account’s existing profile picture. If this isn’t the -case you can use Gravatar to generate them.
+-A user’s profile page should contain their profile information, profile photo, and posts.
+-There should be an index page for users, which shows all users and buttons for sending follow requests to users the user is not already following or have a pending request.
+-Deploy your app to a hosting provider of your choice!
+
+-Make posts also allow images (either just via a URL or by uploading one). If you did the extra credit from the File Uploader project, then you may recall Cloudinary or Supabase storage being good options for hosting user-uploaded images. The URLs they provide you can then be stored in your database instead of the raw image binary data.
+-Allow users to update their profile photo.
+-Create a guest sign-in functionality that allows visitors to bypass the login screen without creating an account or supplying credentials. This is especially useful if you are planning on putting this project on your résumé - most recruiters, hiring managers, etc. will not take the time to create an account. This feature will allow them to look at your hard work without going through a tedious sign-up process.
+
+
+NEED INSTAGRAM CLONE NAME
+
+Project will need:
+GIT 
+Testing?
+Naming conventions
+clean code, comments?
