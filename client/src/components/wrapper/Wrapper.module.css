@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  position: relative;
+}
+
+.wrapper--login {
+  background-color: #f0f8ff; /* Slightly different for login page */
+}
+
+.wrapper--register {
+  background-color: #fffaf0; /* Slightly different for register page */
+}
+
+.wrapper--dashboard {
+  width: 100%;
+  background-color: mintcream;
+  align-items: unset;
+  /* background-color: black; */
+}

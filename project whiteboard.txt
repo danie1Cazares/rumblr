@@ -20,7 +20,10 @@ INSTAGRAM CLONE ->
 PLAN OF ATTACK:
 
 -Work on skeleton front end first
-    --> Log in page
+    Log in page
+    -->CREATE PAGES FOLDER, SEPERATE COMPONETS FROM PAGES
+        - PAGES WILL HAVE WRAPPER AND CONTAINER CSS MODULES
+        - UPLOAD TO GITHUB
     -sidebar nav component
     -user feed component (with recent | following tabs?)
     -latest users | most followed or profile | suggested for you component
