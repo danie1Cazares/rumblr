@@ -11,6 +11,16 @@
   border-bottom: 1px solid #eee;
 }
 
+.post--displayCommentsView {
+    width: 100%;
+  max-width: 425px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  /* border-bottom: 1px solid #eee; */
+}
+
 /* -----------------------------
    Header
 ------------------------------ */
@@ -74,6 +84,12 @@
   object-fit: cover; /* keeps aspect ratio while filling */
   display: block;
   
+  
+}
+
+.post__comments {
+  flex: 80%;
+
 }
 
 /* -----------------------------
@@ -100,7 +116,7 @@
 .post__action-save {
   width: 24px;
   height: 24px;
-  background: #ccc;
+  /* background: #ccc; */
   border-radius: 6px;
   cursor: pointer;
 }
@@ -122,4 +138,13 @@
   font-size: 0.85rem;
   color: #777;
   cursor: pointer;
+}
+
+.post__add-comments {
+  display: flex;
+  column-gap: 1rem;
+}
+
+.post__add-comments input{
+ border: none;
 }

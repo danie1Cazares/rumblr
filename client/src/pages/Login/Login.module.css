@@ -109,15 +109,11 @@
   background: #222;
 }
 
-/* ----------------------------------------
-   Background Logo (page-container element)
------------------------------------------ */
-
-.page-container__background-logo {
-  width: 70%;
+.login__background-logo {
+  /* width: 70%;
   opacity: 0.06;
   position: absolute;
   bottom: 0;
   right: 0;
-  pointer-events: none;
+  pointer-events: none; */
 }

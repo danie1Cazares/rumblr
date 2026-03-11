@@ -102,14 +102,12 @@
   background: #222;
 }
 
-/* ----------------------------------------
-   Container Background Logo
------------------------------------------ */
-.container__background-logo {
-  width: 70%;
+
+.register__background-logo {
+  /* width: 70%;
   opacity: 0.06;
   position: absolute;
   bottom: 0;
   right: 0;
-  pointer-events: none;
+  pointer-events: none; */
 }

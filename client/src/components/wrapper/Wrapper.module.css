@@ -8,14 +8,17 @@
 }
 
 .wrapper--login {
-  background-color: #f0f8ff; /* Slightly different for login page */
+  /* background-color: #f0f8ff; */
+  background-color: mintcream;
 }
 
 .wrapper--register {
-  background-color: #fffaf0; /* Slightly different for register page */
+  /* background-color: #fffaf0;  */
+    background-color: mintcream;
+
 }
 
-.wrapper--dashboard {
+.wrapper--dashboard, .wrapper--profile, .wrapper--settings {
   width: 100%;
   background-color: mintcream;
   align-items: unset;

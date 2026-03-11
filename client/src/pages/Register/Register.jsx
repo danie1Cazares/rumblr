@@ -46,7 +46,7 @@ export default function Register() {
                     <form className={styles["register-form"]} onSubmit={handleSubmit}>
                         <div className={styles["register-form__brand"]} style={{display:"flex",alignItems:"center",columnGap:".5rem"}}>
                         <h3 className={styles["register-form__brand-text"]}>RumblR</h3>
-                        <img className={styles["register-form__brand-logo"]} src="./qm_logo.png"/>
+                        <img className={styles["register-form__brand-logo"]} src="/rumblr_logo_1_small.png"/>
                         </div>
                         <h1 className={styles["register-form__title"]}>Register</h1>
                         <label className={styles["register-form__label"]} autoComplete="false" htmlFor="name">Name:</label>
@@ -61,7 +61,7 @@ export default function Register() {
                         <p className={styles["register-form__subtext"]}>Already have an account? <NavLink className={styles["register-form__link"]} to="/" style={{color:"#8f8f8f"}}>Log in</NavLink></p>
                         <button className={styles["register-form__button"]} type="submit">Sign up</button>
                     </form>
-            <img className={styles["container__background-logo"]} src="./qm_big_logo.png"/>
+            <img className={styles["register__background-logo"]} src="/rumblr_logo_1_large.png"/>
       </Container>
     </Wrapper>
       

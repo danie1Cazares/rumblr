@@ -1,0 +1,110 @@
+.send-message-modal {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  height: 90%;
+  max-width: 550px;
+  max-height: 550px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  transform: translateY(0);
+  transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+
+  padding: 1rem;
+  /* remove padding later and add to individual elements so gray lines / borders can extend to full container size */
+  
+}
+
+.send-message-modal__exit {
+     z-index: 1001;
+    position: fixed;
+    top: -.5rem;
+    right: 1rem;
+    font-size: 3rem;
+    transform: rotate(45deg);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.send-message-modal__header {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    /* align-self: center; */
+    width: 100%;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid rgb(223, 223, 223);
+
+}
+
+.send-message-modal__search {
+    padding: .5rem;
+    border-bottom: 1px solid rgb(223, 223, 223);
+
+}
+.send-message-modal__search-label {
+    font-weight: bold;
+    padding-right: 1rem;
+}
+.send-message-modal__search-input {
+    border: none;
+}
+.send-message-modal__subheader {
+    font-weight: bold;
+    padding: .5rem;
+    font-size: .9rem;
+}
+.send-message-modal__suggested-users {
+        max-height: 375px;
+    overflow-y: scroll;
+}
+
+.send-message-modal__suggested-user {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem;
+}
+.send-message-modal__suggested-user:hover {
+ /* background-color: rgb(250, 249, 249); */
+ background-color: mintcream;
+ cursor: pointer;
+}
+.send-message-modal__suggested-user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.send-message-modal__suggested-user-details {
+    display: flex;
+    column-gap: 1rem;
+}
+.send-message-modal__suggested-user-name-details {
+
+}
+.send-message-modal__suggested-user-username {
+    font-size: .8rem;
+    
+}
+.send-message-modal__suggested-user-name{
+    font-size: .9rem;
+    color: black;
+
+}
+.send-message-modal__suggested-user-radio{
+    width: 25px;
+}
+.send-message-modal__btn {
+margin-top: 1rem;
+/* background-color: ; */
+/* background-color: #504136; */
+/* color: white; */
+}
+
+
+.send-message-modal__radio {
+    width: 25px;
+}

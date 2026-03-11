@@ -1,0 +1,136 @@
+/* =========================
+   CHAT WINDOW HEADER
+========================= */
+
+.chat-window__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  /* padding: 0.75rem 1rem; */
+  border-bottom: 1px solid #e6e6e6;
+  width: 100%;
+}
+
+.chat-window__header-avatar {
+
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: .75rem  0rem .75rem 0.75rem;
+}
+
+.chat-window__header-avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chat-window__header-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-window__header-username {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.chat-window__header-name {
+  font-size: 0.75rem;
+  color: #8e8e8e;
+}
+
+
+/* =========================
+   CHAT MESSAGE ENTRY
+========================= */
+
+.chat-window__messages {
+    width: 100%;
+      display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.75rem;
+  /* padding: 1rem; */
+  overflow-y: auto;
+  flex: 1;
+}
+
+.chat-window__message {
+
+      display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    max-width: 75%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+}
+
+.chat-window__message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chat-window__message-username {
+  font-size: 0.7rem;
+  color: #8e8e8e;
+  margin-bottom: 2px;
+}
+
+.chat-window__message-bubble {
+  background-color: #f1f1f1;
+  padding: 0.6rem 0.75rem;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chat-window__message-content {
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+.chat-window__message-timestamp {
+  font-size: 0.65rem;
+  color: #999;
+  align-self: flex-end;
+}
+
+
+/* =========================
+   CHATBAR (INPUT AREA)
+========================= */
+
+.chat-window__chatbar {
+
+      width: 100%;
+    min-height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    /* padding: 0.75rem 1rem; */
+    border-top: 1px solid #e6e6e6;
+}
+
+.chat-window__chatbar-input {
+      flex: .98;
+    padding: 0.55rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 0.85rem;
+}
+
+.chat-window__chatbar-add-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #efefef;
+  cursor: pointer;
+}

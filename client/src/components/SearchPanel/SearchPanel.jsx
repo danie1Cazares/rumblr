@@ -1,5 +1,5 @@
 
-import styles from './SearchPanelComponent.module.css'
+import styles from './SearchPanel.module.css'
 
 export default function SearchPanel({ isOpen }) {
   return (

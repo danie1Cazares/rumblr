@@ -1,3 +1,5 @@
+    /* CONTAINER/WRAPPER AND COMPONENTS STRUCTURE SHOULD BE CONSISTENT -> IE 1 WRAPPER PER PAGE AND 1 CONTAINER PER COMPONENT */
+
 .container {
   position: relative;
   width: 100%;
@@ -9,38 +11,62 @@
 }
 
 .container--login {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  /* background-color: #ffffff; */
+  /* border-radius: 12px; */
+  /* box-shadow: 0 6px 16px rgba(0,0,0,0.1); */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  max-width: 1300px;
 }
 
 .container--register {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  /* background-color: #ffffff; */
+  /* border-radius: 12px; */
+  /* box-shadow: 0 6px 16px rgba(0,0,0,0.08); */
+    display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  max-width: 1300px;
 }
 
 .container--sidebar {
-    background-color: white;
-    height: 100vh;
-    padding: 0rem;  
-    padding-left: 2rem;
-    max-width: 350px;
-    align-items: unset;
 
-    /* display: flex;
-    align-items: center;
-    justify-content: space-between; */
-      /* transition: width 0.3s ease; */
+
+    /* background-color: rgb(189, 186, 186); */
+    height: 100vh;
+    padding: 0rem;
+    /* padding-left: 1rem; */
+    /* padding-right: 1rem; */
+    /* max-width: 300px; */
+    max-width: 335px;
+    align-items: unset;
+    /* transition: width 0.3s ease; */
+    /* border-right: 1px solid #eeebeb; */
 
 }
 
-/* .container--sidebar--collapsed {
-  width: 70px;
-  transition: width 0.3s ease;
-} */
+.container--sidebar-collapsed {
 
-.container--feed {
+  height: 100vh;
+  padding: 0rem;
+  align-items: unset;
+  max-width: max-content;
+
+  transition: width 0.3s ease;
+      /* background-color: white; */
+          /* height: 100vh; */
+    /* padding: 0rem; */
+    /* padding-left: 1rem; */
+    /* padding-right: 1rem; */
+    /* max-width: 300px; */
+    /* align-items: unset; */
+    /* transition: width 0.3s ease; */
+    /* border-right: 1px solid #eeebeb; */
+
+}
+
+.container--feed{
       /* background-color: white; */
       /* background-color: mintcream; */
 
@@ -53,7 +79,21 @@
     
 }
 
-.container--feed__posts {
+.container--chat-window {
+      /* background-color: white; */
+      /* background-color: mintcream; */
+
+    /* height: 100vh; */
+    padding: 0rem;
+    /* overflow-y: scroll; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+    
+}
+
+.container--posts {
       /* background-color: white; */
       /* background-color: mintcream; */
     /* height: 100vh; */
@@ -63,6 +103,88 @@
   max-width: 900px;
     /* overflow-y: scroll; */
 }
+/* .container--chat-window__messages {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.75rem;
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+} */
+.container--create-post {
+  /* position: absolute;
+  background-color: white;
+  z-index:25;
+  max-width: 650px;
+  min-height: 700px; */
+  padding: 0rem;
+    position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  /* Fade in animation */
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+}
+.container--create-post-hidden {
+  opacity: 0;
+  pointer-events: none;
+
+}
+.container--show-comments {
+  /* position: absolute;
+  background-color: white;
+  z-index:25;
+  max-width: 650px;
+  min-height: 700px; */
+  padding: 0rem;
+    position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  /* Fade in animation */
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.container--send-message {
+    padding: 0rem;
+    position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  /* Fade in animation */
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.container--show-followers, .container--show-following {
+      padding: 0rem;
+    position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  /* Fade in animation */
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+}
 
 .container--suggestions {
     
@@ -71,7 +193,7 @@
     /* background-color: mintcream; */
 }
 
-.container__background-logo {
+/* .container__background-logo {
   width: 70%;
   opacity: 0.06;
   position: absolute;
@@ -79,3 +201,5 @@
   right: 0;
   pointer-events: none;
 }
+ */
+

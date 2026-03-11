@@ -1,34 +1,26 @@
 
-// ->  CREATE OTHER COMPONENTS FOR DASHBOARD AND COMPLETE VERY BASIC STYLING/LAYOUT
-
 
 import { useState } from 'react';
 
-import styles from "./Dashboard.module.css";
+// import styles from "./Dashboard.module.css";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import Container from "../../components/Container/Container";
-import SidebarComponent from '../../components/Sidebar/SidebarComponent';
-import FeedComponent from '../../components/FeedComponent/FeedComponent'
-import SearchPanel from '../../components/SearchPanel/SearchPanelComponent';
-import FollowerSuggestionsComponent from '../../components/FollowerSuggestionsComponent/FollowerSuggestionsComponent'
+import Sidebar from '../../components/Sidebar/Sidebar';
+import FeedPanel from '../../components/FeedPanel/FeedPanel'
+import CreatePostModal from '../../components/CreatePostModal/CreatePostModal';
 
 import api from '../../api';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 
 
-export default function Login() {
-//   const [form, setForm] = useState({ email: '', password: '' });
-//   const [message, setMessage] = useState('');
-  const navigate = useNavigate();
-  
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [showSearchPanel, setShowSearchPanel] = useState(false);
+export default function Dashboard() {
 
-  const handleSearchClick = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
-    setShowSearchPanel(!showSearchPanel);
-  };
+  const navigate = useNavigate();
+  const [showCreatePost, setShowCreatePost] = useState(false);
+  
+
+
 
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -54,18 +46,12 @@ export default function Login() {
   // if (localStorage.getItem('token')) return <Navigate to="/profile" />;
 
 
-  return (
-    // <div className="wrapper wrapper--login">
-    //     <div className="container container--login">        
+  return (     
       <Wrapper modifier="dashboard">
-        {/* <Container >            */}
-                    <SidebarComponent  isCollapsed={isSidebarCollapsed}  onSearchClick={handleSearchClick} />
-                    <SearchPanel isOpen={showSearchPanel} />
+                    <Sidebar  sidebarIsCollapsed={false} onCreatePostClick={()=>{setShowCreatePost(true)}}/>
+                    <FeedPanel />
+                    {showCreatePost && <CreatePostModal onExitClick={()=>{setShowCreatePost(false)}}/>}
 
-                    <FeedComponent />
-                    {/* <FollowerSuggestionsComponent /> */}
-
-      {/* </Container> */}
-    </Wrapper>     
+      </Wrapper>     
   );
 }

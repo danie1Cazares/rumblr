@@ -9,18 +9,20 @@
   box-shadow: 2px 0 8px rgba(0,0,0,0.15);
   transition: left 0.3s ease;
   z-index: 20;
-  display: none;
+  /* display: none; */
 }
 
 .search-panel--open {
     display: block;
-left: 70px; /* aligns next to collapsed sidebar */
+    left: 103px;
+/* left: 70px;  */
+/* aligns next to collapsed sidebar */
   top: 0;
 
 padding: 1rem;
 position: fixed;
   height: 100vh;
-  max-width: 300px;
+  max-width: 325px;
   width: 100%;
   background: #fff;
   box-shadow: 2px 0 8px rgba(0,0,0,0.15);

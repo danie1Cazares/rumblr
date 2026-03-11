@@ -1,29 +1,18 @@
-// Home
-// Search
-// Messages
-// Notifications ?
-// Create (post)
-// Profile
-// Settings
 
-// Repurpose for rumblr Login, basic styling only
 
 import { useState } from 'react';
-import styles from "./FeedComponent.module.css";
-import Wrapper from "../Wrapper/Wrapper";
+// import styles from "./Feed.module.css";
 import Container from "../Container/Container";
-import PostComponent from "../Post/PostComponent"
-import FollowerSuggestionsComponent from '../../components/FollowerSuggestionsComponent/FollowerSuggestionsComponent'
+import Post from "../Post/Post"
+import FollowerSuggestions from '../FollowerSuggestions/FollowerSuggestions'
 
 import api from '../../api';
-// import photo from '../../../'
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 
 
 export default function FeedComponent() {
-//   const [form, setForm] = useState({ email: '', password: '' });
-//   const [message, setMessage] = useState('');
+
   const navigate = useNavigate();
 
   //Mock posts to simulate data from DB
@@ -102,20 +91,22 @@ export default function FeedComponent() {
   }
 ];
 
+ 
 
 
   return (
      
     <Container modifier="feed">
-      <Container modifier="feed__posts">           
-          <PostComponent 
+      <Container modifier="posts">           
+          <Post 
               authorAvatar="https://images.squarespace-cdn.com/content/v1/631ba8eed2196a6795698665/3690ca61-6a9d-4c93-a2a5-83a5f2aa1648/2022-08-16-Trinet-0540-Martinez-Juan.jpg"
               authorName="Mr. Rumblr"
               daysOld="2"
               contentImage="https://foundersbeta.com/wp-content/uploads/2024/09/Startup-Memes-Paying-Customer.png"
-              likeCount="4,392 likes"
+              likeCount="4,392"
               caption="Beautiful day outside."
               commentsCount="120"
+      
               onLike={() => console.log("Liked")}
               onComment={() => console.log("Comment")}
               onShare={() => console.log("Share")}
@@ -123,7 +114,7 @@ export default function FeedComponent() {
           />        
 
           {mockPosts.map(post => (
-              <PostComponent
+              <Post
               key={post.id}
               authorName={post.author.name}
               authorAvatar={post.author.avatarUrl}
@@ -136,7 +127,7 @@ export default function FeedComponent() {
           ))}
       </Container>
 
-      <FollowerSuggestionsComponent />
+      <FollowerSuggestions />
 
     </Container>
 
@@ -144,4 +135,3 @@ export default function FeedComponent() {
 }
 
 
-// CREATE SEARCH COMPONENT, SIDEBAR SHOULD MINIMIZE TO JUST ICONS ON CLICK AND SEARCH COMPONENT SHOULD SLIDE IN / EXPAND OUT.

@@ -1,11 +1,12 @@
 
 
 import { useState } from 'react';
-import styles from "./FollowerSuggestionsComponent.module.css";
+import styles from "./FollowerSuggestions.module.css";
 import Container from "../Container/Container";
 
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
+import ListUser from '../ListUser/ListUser';
 
 
 export default function FollowerSuggestionsComponent() {
@@ -76,25 +77,33 @@ export default function FollowerSuggestionsComponent() {
 
 
             {mockFollowSuggestions.map(suggestion => (
-                    <div className={styles["follow-suggestion"]}>
-                    <div className={styles["follow-suggestion__author-avatar"]}>
-                    <img
-                        className={styles["follow-suggestion__avatar-image"]}
-                        src={suggestion.avatar}
-                        alt={`${suggestion.username} avatar`}
-                    />
-                    </div>
+                  <div className={styles["follow-suggestion"]}>
+                      <div className={styles["follow-suggestion__author-avatar"]}>
+                        <img
+                            className={styles["follow-suggestion__avatar-image"]}
+                            src={suggestion.avatar}
+                            alt={`${suggestion.username} avatar`}
+                        />
+                      </div>
             
-                    <div className={styles["follow-suggestion__details"]}>
-                            <div className={styles["follow-suggestion__username"]}> {suggestion.username} </div>
-                            <div className={styles["follow-suggestion__name"]}> {suggestion.fullName} </div>
+                      <div className={styles["follow-suggestion__details"]}>
+                              <div className={styles["follow-suggestion__username"]}> {suggestion.username} </div>
+                              <div className={styles["follow-suggestion__name"]}> {suggestion.fullName} </div>
 
-                    </div>
+                      </div>
 
                     <div className={styles["follow-suggestion__follow-user"]} >Follow</div>
 
-                </div>
+                  </div>
             ))}
+
+            {/* {mockFollowSuggestions.map(user => (
+
+               <ListUser avatar={user.avatar} name={user.fullName} username={user.username} actionElement={
+                  <div className={styles["follow-suggestion__follow-user"]} >Follow</div>
+                } />
+
+            ))} */}
 
             <div className={styles.footer}>
                 <div className={styles["footer__links"]}>About . Help . Press . API . Jobs . Privacy . Consumer Health Privacy . Terms . Locations . Language . Meta Verified</div>

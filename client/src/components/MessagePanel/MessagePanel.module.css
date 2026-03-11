@@ -1,0 +1,29 @@
+.message-panel {
+    display: block;
+/* left: 70px; aligns next to collapsed sidebar */
+  /* top: 0; */
+
+padding: 1rem;
+/* position: fixed; */
+  /* height: 100vh; */
+  max-width: 300px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+  transition: left 0.3s ease;
+  /* z-index: 20; */
+
+}
+
+.message-panel__header {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.message-panel__input {
+    width: 93%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
