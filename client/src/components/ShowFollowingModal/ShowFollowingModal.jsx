@@ -1,11 +1,3 @@
-// Ensure consistent naming
-
-// git hub upload
-
-// **back end stuff**
-// wrap up front end styling
-// make responsive
-// add front end transitions/animations
 
 
 
