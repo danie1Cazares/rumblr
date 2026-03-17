@@ -8,7 +8,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 
 export default function Register() {
-    const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+    const [form, setForm] = useState({ fname: '', lname: '', email: '', password: '', confirmPassword: '' });
     const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
@@ -17,24 +17,24 @@ export default function Register() {
   const handleSubmit = async (e) => {
   e.preventDefault();
   //REGISTER USER
-//   try {
-//       await api.post('/auth/register', form);
+  try {
+      await api.post('/auth/register', form);
 
-//     // Success
-//       setMessage('Account registered! Redirecting...')
+    // Success
+      setMessage('Account registered! Redirecting...')
 
-//       setTimeout(() => {
-//             navigate('/');
-//       }, 2000);
+      setTimeout(() => {
+            navigate('/');
+      }, 2000);
     
-//   } catch (err) {
-//     // Error (like 401 from backend)
-//     if (err.response && err.response.data.message) {
-//       setMessage(err.response.data.message);
-//     } else {
-//       setMessage('Something went wrong, please try again.');
-//     }
-//   }
+  } catch (err) {
+    // Error (like 401 from backend)
+    if (err.response && err.response.data.message) {
+      setMessage(err.response.data.message);
+    } else {
+      setMessage('Something went wrong, please try again.');
+    }
+  }
 };
 
 
@@ -49,15 +49,17 @@ export default function Register() {
                         <img className={styles["register-form__brand-logo"]} src="/rumblr_logo_1_small.png"/>
                         </div>
                         <h1 className={styles["register-form__title"]}>Register</h1>
-                        <label className={styles["register-form__label"]} autoComplete="false" htmlFor="name">Name:</label>
-                        <input className={styles["register-form__input"]} autoComplete="false" id="name" onChange={e=>setForm({...form,name:e.target.value})} required/>
+                        <label className={styles["register-form__label"]} autoComplete="false" htmlFor="fname">First Name:</label>
+                        <input className={styles["register-form__input"]} autoComplete="false" id="fname" onChange={e=>setForm({...form,fname:e.target.value})} required/>
+                        <label className={styles["register-form__label"]} autoComplete="false" htmlFor="lname">Last Name:</label>
+                        <input className={styles["register-form__input"]} autoComplete="false" id="lname" onChange={e=>setForm({...form,lname:e.target.value})} required/>
                         <label className={styles["register-form__label"]} autoComplete="false" htmlFor="email">Username:</label>
                         <input className={styles["register-form__input"]} autoComplete="false" id="email" onChange={e=>setForm({...form,email:e.target.value})} required/>
                         <label className={styles["register-form__label"]} autoComplete="false" htmlFor="password">Password:</label>
                         <input className={styles["register-form__input"]} autoComplete="false" id="password" type="password" onChange={e=>setForm({...form,password:e.target.value})} required/>
                         <label className={styles["register-form__label"]} autoComplete="false" htmlFor="confirm-password">Confirm Password:</label>
                         <input className={styles["register-form__input"]} autoComplete="false" id="confirm-password" type="password" onChange={e=>setForm({...form,confirmPassword:e.target.value})} required/>
-                        {message&&<p className={styles["register-form__error"]} style={{color:"#cb6277"}}>{message}</p>}
+                        {message && <p className={styles["register-form__error"]} style={{color:"#cb6277"}}>{message}</p>}
                         <p className={styles["register-form__subtext"]}>Already have an account? <NavLink className={styles["register-form__link"]} to="/" style={{color:"#8f8f8f"}}>Log in</NavLink></p>
                         <button className={styles["register-form__button"]} type="submit">Sign up</button>
                     </form>

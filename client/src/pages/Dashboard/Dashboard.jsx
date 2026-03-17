@@ -1,6 +1,6 @@
 
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // import styles from "./Dashboard.module.css";
 import Wrapper from "../../components/Wrapper/Wrapper";
@@ -14,42 +14,41 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 
 
+
 export default function Dashboard() {
 
   const navigate = useNavigate();
   const [showCreatePost, setShowCreatePost] = useState(false);
-  
+  const [user, setUser] = useState(null);
 
+  useEffect(() => {
+    
+    const fetchUser = async () => {
+      try {
+        const res = await api.get('/users'); 
+        console.log(res.data);
+        setUser(res.data);
+      } catch (err) {
+        console.error("Failed to fetch user:", err);
+      }
 
+    };
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  // try {
-  //   const res = await api.post('/auth/login', form);
+    fetchUser();
 
-  //   // Success
-  //   if (res.data.token) {
-  //     localStorage.setItem('token', res.data.token);
-  //     navigate('/profile');
-  //   }
-  // } catch (err) {
-  //   // Error (like 401 from backend)
-  //   if (err.response && err.response.data.message) {
-  //     setMessage(err.response.data.message);
-  //   } else {
-  //     setMessage('Something went wrong, please try again.');
-  //   }
-  // }
-};
+  }, []);
 
-  // CHECK LOGIN STATUS AND RETURN TO PROFILE PAGE IF LOGGED IN
-  // if (localStorage.getItem('token')) return <Navigate to="/profile" />;
+  if (!user) return <p>Loading...</p>;
+
+  // CHECK LOGIN STATUS AND RETURN TO LOGIN PAGE IF NOT LOGGED IN
+    if (!(localStorage.getItem('token'))) return <Navigate to="/" />;
+
 
 
   return (     
       <Wrapper modifier="dashboard">
                     <Sidebar  sidebarIsCollapsed={false} onCreatePostClick={()=>{setShowCreatePost(true)}}/>
-                    <FeedPanel />
+                    <FeedPanel  />
                     {showCreatePost && <CreatePostModal onExitClick={()=>{setShowCreatePost(false)}}/>}
 
       </Wrapper>     
