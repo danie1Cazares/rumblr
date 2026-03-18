@@ -1,6 +1,7 @@
 
 
 import { useState, useEffect } from 'react';
+import { useAuth } from "../../context/AuthContext";
 
 // import styles from "./Dashboard.module.css";
 import Wrapper from "../../components/Wrapper/Wrapper";
@@ -19,29 +20,14 @@ export default function Dashboard() {
 
   const navigate = useNavigate();
   const [showCreatePost, setShowCreatePost] = useState(false);
-  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    
-    const fetchUser = async () => {
-      try {
-        const res = await api.get('/users'); 
-        console.log(res.data);
-        setUser(res.data);
-      } catch (err) {
-        console.error("Failed to fetch user:", err);
-      }
+    // const { user, setUser } = useAuth();
 
-    };
 
-    fetchUser();
-
-  }, []);
-
-  if (!user) return <p>Loading...</p>;
+  // if (!user) return <p>Loading...</p>;
 
   // CHECK LOGIN STATUS AND RETURN TO LOGIN PAGE IF NOT LOGGED IN
-    if (!(localStorage.getItem('token'))) return <Navigate to="/" />;
+    // if (!(localStorage.getItem('token'))) return <Navigate to="/" />;
 
 
 
@@ -54,3 +40,28 @@ export default function Dashboard() {
       </Wrapper>     
   );
 }
+
+
+// import ProtectedRoute from "./ProtectedRoute";
+// import Dashboard from "./Dashboard";
+
+// <Route
+//   path="/dashboard"
+//   element={
+//     <ProtectedRoute>
+//       <Dashboard />
+//     </ProtectedRoute>
+//   }
+// />
+
+// import { useAuth } from "./context/AuthContext";
+
+// function Dashboard() {
+//   const { user } = useAuth();
+
+//   return (
+//     <div>
+//       <h1>Welcome {user.fname}</h1>
+//     </div>
+//   );
+// }

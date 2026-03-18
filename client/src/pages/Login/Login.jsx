@@ -7,26 +7,53 @@ import Container from "../../components/Container/Container";
 import api from '../../api';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
+import { useAuth } from "../../context/AuthContext";
 
 
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const { user, setUser, loading } = useAuth();
 
 
-  const handleSubmit = async (e) => {
+//   const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   try {
+//     const res = await api.post('/auth/login', form);
+
+//     // Success
+//     if (res.data.token) {
+//       localStorage.setItem('token', res.data.token);
+//       navigate('/dashboard');
+//     }
+//   } catch (err) {
+//     // Error (like 401 from backend)
+//     if (err.response && err.response.data.message) {
+//       setMessage(err.response.data.message);
+//     } else {
+//       setMessage('Something went wrong, please try again.');
+//     }
+//   }
+// };
+
+const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     const res = await api.post('/auth/login', form);
 
-    // Success
     if (res.data.token) {
       localStorage.setItem('token', res.data.token);
-      navigate('/dashboard');
+
+      // Immediately update context so user is "logged in"
+      const userRes = await api.get('/users/', {
+        headers: { Authorization: `Bearer ${res.data.token}` }
+      });
+      setUser(userRes.data); // ✅ user is now in context
+
+      // AuthContext now knows user is logged in → Login.jsx will redirect
     }
   } catch (err) {
-    // Error (like 401 from backend)
     if (err.response && err.response.data.message) {
       setMessage(err.response.data.message);
     } else {
@@ -35,8 +62,13 @@ export default function Login() {
   }
 };
 
-  // CHECK LOGIN STATUS AND RETURN TO PROFILE PAGE IF LOGGED IN
-  if (localStorage.getItem('token')) return <Navigate to="/profile" />;
+  // CHECK LOGIN STATUS AND RETURN TO Dashboard PAGE IF LOGGED IN
+  // if (localStorage.getItem('token')) return <Navigate to="/dashboard" />;
+
+    if (loading) return <p>Loading...</p>; // wait for AuthContext fetch
+
+    if (user) return <Navigate to="/dashboard" />;
+
 
 
   return (

@@ -1,8 +1,11 @@
 
 
 import { useState } from 'react';
+import { useAuth } from "../../context/AuthContext";
 import styles from "./FollowerSuggestions.module.css";
 import Container from "../Container/Container";
+
+import api from '../../api';
 
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
@@ -12,6 +15,7 @@ import ListUser from '../ListUser/ListUser';
 export default function FollowerSuggestionsComponent() {
 
   const navigate = useNavigate();
+  const { user, setUser } = useAuth();
 
   const mockUser = {avatar: 'https://thelightcommittee.com/wp-content/uploads/elementor/thumbs/studio-business-headshot-of-a-black-man-in-Los-Angeles-r42uipeyz48g590yz1bhrtos4flfu3q2tuzohhy7f4.jpg', username: 'cazaresdaniel', name: 'Daniel Cazares',};
 
@@ -50,6 +54,14 @@ export default function FollowerSuggestionsComponent() {
 
 
 
+    const handleLogOut = async() => {
+      await api.put('/auth/logout'); 
+      localStorage.removeItem("token");
+      setUser(null);
+
+      navigate("/");
+    };
+
   return (
       
     <Container modifier="suggestions">        
@@ -64,12 +76,12 @@ export default function FollowerSuggestionsComponent() {
                 </div>
         
                 <div className={styles["active-profile__details"]}>
-                        <div className={styles["active-profile__username"]}> {mockUser.username} </div>
-                        <div className={styles["active-profile__name"]}> {mockUser.name} </div>
+                        <div className={styles["active-profile__username"]}> {user.email} </div>
+                        <div className={styles["active-profile__name"]}> {user.fname} {user.lname} </div>
 
                 </div>
 
-                <div className={styles["active-profile__switch-user"]} >Switch</div>
+                <div className={styles["active-profile__switch-user"]} onClick={handleLogOut} >Log out</div>
 
               </div>
 
