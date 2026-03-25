@@ -1,9 +1,11 @@
 const router = require('express').Router();
-const { PrismaClient } = require('@prisma/client'); // ✅ CORRECT
+const prisma = require('../prisma'); // shared client
+
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('./middleware');
 
-const prisma = new PrismaClient();
+// const { PrismaClient } = require('@prisma/client'); 
+// const prisma = new PrismaClient();
 
 
 
@@ -72,6 +74,29 @@ router.put('/update', async (req, res) => {
 });
 
 
+router.get('/:id', async (req, res) => {
+  const userId = parseInt(req.params.id);
 
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: {
+      posts: true,
+      followers: true,
+      following: true
+    }
+  });
+
+  if (!user) return res.status(404).json({ message: "User not found" });
+
+  res.json({
+    id: user.id,
+    fname: user.fname,
+    lname: user.lname,
+    email: user.email,
+    posts: user.posts,
+    followersCount: user.followers.length,
+    followingCount: user.following.length
+  });
+});
 
 module.exports = router;

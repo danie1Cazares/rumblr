@@ -1,4 +1,5 @@
 // server/index.js
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 
@@ -11,10 +12,13 @@ app.get("/api", (req, res) => {
 });
 app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/users'));
+app.use('/posts', require('./routes/posts'));
 
-// app.use('/messages', require('./routes/messages'));
 
 app.listen(5000, () => console.log("Server running on port 5000"));
+
+
+// app.use('/messages', require('./routes/messages'));
 // const PORT = 3000;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 

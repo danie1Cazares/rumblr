@@ -2,9 +2,9 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('./middleware');
-
-const { PrismaClient } = require('@prisma/client'); // ✅ CORRECT
-const prisma = new PrismaClient();
+const prisma = require('../prisma'); 
+// const { PrismaClient } = require('@prisma/client'); 
+// const prisma = new PrismaClient();
 
 router.post('/register', async (req, res) => {
   // validation errors here
