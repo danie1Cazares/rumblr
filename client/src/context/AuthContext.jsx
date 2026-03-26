@@ -7,10 +7,12 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true; // track mount status
+
     const token = localStorage.getItem("token");
 
     if (!token) {
-      setLoading(false);
+      if (isMounted) setLoading(false);
       return;
     }
 
@@ -21,13 +23,22 @@ export function AuthProvider({ children }) {
     })
       .then(res => res.json())
       .then(data => {
-        setUser(data);
-        setLoading(false);
+        if (isMounted) {
+          setUser(data);
+          setLoading(false);
+        }
       })
       .catch(() => {
-        setUser(null);
-        setLoading(false);
+        if (isMounted) {
+          setUser(null);
+          setLoading(false);
+        }
       });
+
+    // cleanup function
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
@@ -36,8 +47,6 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
-
-
 
 export const useAuth = () => {
   const context = useContext(AuthContext);

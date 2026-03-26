@@ -1,0 +1,160 @@
+.create-post-modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 650px;
+  width: 90%;
+  height: 90%;
+  max-height: 650px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  transform: translateY(0);
+  transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hidden / closed state */
+.create-post-modal--hidden {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.create-post-modal__header {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid silver;
+  padding: 0.5rem;
+}
+
+.create-post-modal__header-prev-nav {
+  cursor: pointer;
+}
+
+.create-post-modal__header-title {
+  flex: 1;
+  text-align: center;
+}
+
+.create-post-modal__header-exit{
+    cursor: pointer;
+}
+
+/* =========================
+   IMAGE SELECT STATE
+========================= */
+
+.create-post-modal__image-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.create-post-modal__icon {
+  width: 200px;
+}
+
+/* =========================
+   CONTENT STATE
+========================= */
+
+.create-post-modal__content {
+  display: flex;
+  width: 100%;
+  max-width: 650px;
+  height: 100%;
+  max-height: 650px;
+  overflow: hidden;
+  align-items: center;
+}
+
+.create-post-modal__image-preview {
+  height: 100%;
+  width: 50%;
+  object-fit: cover;
+  border-radius: 0 0 0 12px;
+  border-right: 1px solid silver;
+}
+
+/* =========================
+   DETAILS / CAPTION
+========================= */
+
+.create-post-modal__details {
+  width: 50%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+
+.create-post-modal__caption-box {
+  border-bottom: 1px solid silver;
+}
+
+.create-post-modal__author {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.create-post-modal__author-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.create-post-modal__author-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+  text-transform: lowercase;
+}
+
+.create-post-modal__caption-textarea {
+  height: 150px;
+  width: 98%;
+  max-width: 290px;
+  margin: 1rem;
+  margin-bottom: 0;
+  outline: none;
+  border: none;
+  resize: none;
+  overflow-y: auto;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.create-post-modal__button {
+  max-width: 150px;
+  margin: 1rem auto;
+}
+
+/* =========================
+   OPTIONAL CLOSE BUTTON
+========================= */
+
+.create-post-modal__close-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 1.25rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}

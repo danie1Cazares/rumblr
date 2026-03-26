@@ -1,45 +1,64 @@
 import { useState, useRef, useEffect } from 'react';
 import styles from "./CreatePostModal.module.css";
-import Container from "../Container/Container";
-import { supabase } from "../../supabase";
-import api from '../../api';
+import Container from "./Container/Container";
+import { supabase } from "../supabase";
+import api from '../api';
 
-export default function CreatePost({ onExitClick }) {
+export default function test() {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [caption, setCaption] = useState("");
   const [loading, setLoading] = useState(false);
- 
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    // Track component mount status
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const handleShare = async () => {
-  if (!file) return;
-  setLoading(true);
+    if (!file) return;
+    setLoading(true);
 
-  try {
-    const fileName = `${Date.now()}-${file.name}`;
+    try {
+      const fileName = `${Date.now()}-${file.name}`;
 
-    const { error: uploadError } = await supabase.storage
-      .from("posts")
-      .upload(fileName, file);
+      // 1️⃣ Upload image to Supabase
+      const { error: uploadError } = await supabase.storage
+        .from("posts")
+        .upload(fileName, file);
 
-    if (uploadError) throw uploadError;
+      if (uploadError) throw uploadError;
 
-    const { data: publicUrlData } = supabase.storage
-      .from("posts")
-      .getPublicUrl(fileName);
+      // 2️⃣ Get public URL
+      const { data: publicUrlData, error: urlError } = supabase.storage
+        .from("posts")
+        .getPublicUrl(fileName);
 
-    const imageUrl = publicUrlData.publicUrl;
+      if (urlError) throw urlError;
 
-    await api.post("/posts", { caption, imageUrl });
+      const imageUrl = publicUrlData.publicUrl;
 
-    // ✅ Close immediately after success
-    onExitClick();
+      // 3️⃣ Create post in backend
+      await api.post("/posts", { caption, imageUrl });
 
-  } catch (err) {
-    console.error("Error creating post:", err);
-  } finally {
-    setLoading(false);
-  }
-};
+      // ✅ Only update state if component is still mounted
+      if (!isMounted.current) return;
+
+      setFile(null);
+      setPreview(null);
+      setCaption("");
+      setLoading(false);
+
+      // Close modal
+    //   onExitClick();
+    } catch (err) {
+      console.error("Error creating post:", err);
+      if (isMounted.current) setLoading(false);
+    }
+  };
 
   return (
     <Container modifier={"create-post"}>
@@ -61,7 +80,7 @@ export default function CreatePost({ onExitClick }) {
           </div>
           <div
             className={styles["create-post-modal__header-exit"]}
-            onClick={onExitClick}
+            
           >
             X
           </div>
@@ -129,54 +148,3 @@ export default function CreatePost({ onExitClick }) {
     </Container>
   );
 }
-
- // const isMounted = useRef(true);
-
-  // useEffect(() => {
-  //   // Track component mount status
-  //   return () => {
-  //     isMounted.current = false;
-  //   };
-  // }, []);
-
-  // const handleShare = async () => {
-  //   if (!file) return;
-  //   setLoading(true);
-
-  //   try {
-  //     const fileName = `${Date.now()}-${file.name}`;
-
-  //     // 1️⃣ Upload image to Supabase
-  //     const { error: uploadError } = await supabase.storage
-  //       .from("posts")
-  //       .upload(fileName, file);
-
-  //     if (uploadError) throw uploadError;
-
-  //     // 2️⃣ Get public URL
-  //     const { data: publicUrlData, error: urlError } = supabase.storage
-  //       .from("posts")
-  //       .getPublicUrl(fileName);
-
-  //     if (urlError) throw urlError;
-
-  //     const imageUrl = publicUrlData.publicUrl;
-
-  //     // 3️⃣ Create post in backend
-  //     await api.post("/posts", { caption, imageUrl });
-
-  //     // ✅ Only update state if component is still mounted
-  //     if (!isMounted.current) return;
-
-  //     setFile(null);
-  //     setPreview(null);
-  //     setCaption("");
-  //     setLoading(false);
-
-  //   //   Close modal
-  //     onExitClick();
-  //   } catch (err) {
-  //     console.error("Error creating post:", err);
-  //     if (isMounted.current) setLoading(false);
-  //   }
-  // };

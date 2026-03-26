@@ -5,6 +5,8 @@ import Container from "../Container/Container";
 import api from '../../api';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
+import { useAuth } from "../../context/AuthContext";
+
 
 import SearchPanel from '../../components/SearchPanel/SearchPanel';
 import NotificationsPanel from '../../components/NotificationsPanel/NotificationsPanel';
@@ -17,6 +19,7 @@ export default function SidebarComponent({ sidebarIsCollapsed, onCreatePostClick
     const [isNavCollapsed, setIsNavCollapsed] = useState(preventNavExpansion);
   const [showSearchPanel, setShowSearchPanel] = useState(false);
   const [showNotificationsPanel, setShowNotificationsPanel] = useState(false);
+    const { user } = useAuth();
 
   const onSearchClick = () => {
 
@@ -53,7 +56,7 @@ export default function SidebarComponent({ sidebarIsCollapsed, onCreatePostClick
 
 
             <div className={styles["nav__group"]}>
-                <NavLink to="/dashboard"><img className={styles.logo} src="rumblr_logo_1_small.png" alt="RumblR logo" /></NavLink>
+                <NavLink to="/dashboard"><img className={styles.logo} src="/rumblr_logo_1_small.png" alt="RumblR logo" /></NavLink>
                 <div className={styles["nav__element"]}>
                 <div><NavLink to="/dashboard"><span className={`material-symbols-outlined ${styles["element__icon"]}`}>home</span></NavLink></div>
                     {!isNavCollapsed && <div className={styles["element__link"]}><NavLink to="/dashboard">Home</NavLink></div>}
@@ -79,8 +82,8 @@ export default function SidebarComponent({ sidebarIsCollapsed, onCreatePostClick
 
             <div className={styles["nav__group"]}>
                 <div className={styles["nav__element"]}>
-                    <div className={styles["element__icon"]}><NavLink to="/profile"><span class="material-symbols-outlined">account_circle</span></NavLink></div>
-                   {!isNavCollapsed && <div className={styles["element__link"]}><NavLink to="/profile">Profile</NavLink></div>}
+                    <div className={styles["element__icon"]}><NavLink to={`/profile/${user?.id}`}><span class="material-symbols-outlined">account_circle</span></NavLink></div>
+                   {!isNavCollapsed && <div className={styles["element__link"]}><NavLink to={`/profile/${user?.id}`}>Profile</NavLink></div>}
                 </div>
                 <div className={styles["nav__element"]}>
                     <div className={styles["element__icon"]}><NavLink to="/settings"><span class="material-symbols-outlined">settings</span></NavLink></div>

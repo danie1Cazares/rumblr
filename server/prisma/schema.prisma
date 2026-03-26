@@ -35,8 +35,8 @@ model User {
   comments  Comment[]
   likes     Like[]
 
-  following Follow[]   @relation("following")
-  followers Follow[]   @relation("followers")
+  following Follow[]   @relation("follower")
+  followers Follow[]   @relation("following")
 }
 
 model Post {
@@ -82,7 +82,7 @@ model Follow {
   followerId   Int
   followingId  Int
 
-  follower     User @relation("followers", fields: [followerId], references: [id])
+  follower     User @relation("follower", fields: [followerId], references: [id])
   following    User @relation("following", fields: [followingId], references: [id])
 
   @@unique([followerId, followingId])

@@ -19,17 +19,33 @@ INSTAGRAM CLONE ->
 
 PLAN OF ATTACK:
 
--Work on skeleton front end first
-    Log in page
-    -->CREATE PAGES FOLDER, SEPERATE COMPONETS FROM PAGES
-        - PAGES WILL HAVE WRAPPER AND CONTAINER CSS MODULES
-        - UPLOAD TO GITHUB
-    -sidebar nav component
-    -user feed component (with recent | following tabs?)
-    -latest users | most followed or profile | suggested for you component
 
-    *break down components deeper after above is completed
 -Create backend and then db
 -Polish front end
 
 
+BACK end
+--> CREATE ALL USER ACTIONS
+--- long term plan for profile is profile component that will take a prop (ie. activeUser), 
+if prop is true will return a different component that will allow user editing ect..
+
+
+-FOLLOWERS/FOLLOWING DISPLAYED SHOULD UPDATE
+-FEED SHOULD LOAD FOLLOWERS posts
+
+---SHOULD BE ABLE TO COMMENT ON posts
+--SHOULD CLICK ON A USERNAME ON POST/COMMENT/ECT AND IT SHOULD LOAD PROFILE PAGE
+--SHOULDBE ABLE TO CHANGE PROFILE PIC
+-MESSENGER SYSTEM
+
+
+npm run dev
+
+npx prisma studio
+npx nodemon
+npx prisma dev
+
+
+// wrap up front end styling
+// make responsive
+// add front end transitions/animations

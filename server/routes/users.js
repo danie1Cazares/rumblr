@@ -82,7 +82,9 @@ router.get('/:id', async (req, res) => {
     include: {
       posts: true,
       followers: true,
-      following: true
+      following: true,
+      _count: { select: { followers: true, following: true } }
+
     }
   });
 
@@ -94,9 +96,66 @@ router.get('/:id', async (req, res) => {
     lname: user.lname,
     email: user.email,
     posts: user.posts,
-    followersCount: user.followers.length,
-    followingCount: user.following.length
+    avatar: user.avatar,
+    bio: user.bio,
+    followers: user.followers,
+    following: user.following,
+    followersCount: user._count.followers,
+    followingCount: user._count.following
   });
 });
+
+// Follow a user
+router.post('/:id/follow', authMiddleware, async (req, res) => {
+  const currentUser  = req.userId;        // from auth middleware
+  const userToFollow = parseInt(req.params.id);
+
+  if (currentUser === userToFollow)
+    return res.status(400).json({ error: "Can't follow yourself" });
+
+  const follow = await prisma.follow.create({
+    data: { followerId: currentUser, followingId: userToFollow }
+  });
+  res.json(follow);
+});
+
+// Unfollow a user
+router.delete('/:id/follow', authMiddleware, async (req, res) => {
+  const currentUser  = req.userId;
+  const userToUnfollow = parseInt(req.params.id);
+
+  await prisma.follow.delete({
+    where: { followerId_followingId: { followerId: currentUser, followingId: userToUnfollow } }
+  });
+  res.json({ success: true });
+});
+
+// GET /users/:id/follow-status
+router.get('/:id/follow-status', authMiddleware, async (req, res) => {
+  const followerId  = req.userId;             // logged in user
+  const followingId = parseInt(req.params.id); // profile being viewed
+
+  const follow = await prisma.follow.findUnique({
+    where: {
+      followerId_followingId: { followerId, followingId }
+    }
+  });
+
+  res.json({ isFollowing: !!follow }); // true if row exists, false if not
+});
+
+// Get followers/following with counts
+// router.get('/:id', async (req, res) => {
+//   const user = await prisma.user.findUnique({
+//     where: { id: parseInt(req.params.id) },
+//     include: {
+//       followers: { include: { follower: true } },
+//       following: { include: { following: true } },
+//       _count: { select: { followers: true, following: true } }
+//     }
+//   });
+//   res.json(user);
+// });
+
 
 module.exports = router;
