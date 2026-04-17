@@ -10,4 +10,27 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// handle expired token on any response
+api.interceptors.response.use(
+  response => response,
+  async error => {
+    if (error.response?.status === 401 || error.response?.status === 403) {
+      try {
+        await fetch("http://localhost:5000/users/logout", {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+      } catch (err) {
+        console.error("Logout error:", err);
+      } finally {
+        localStorage.removeItem("token");
+        window.location.href = '/';
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default api;

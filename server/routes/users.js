@@ -12,11 +12,6 @@ const authMiddleware = require('./middleware');
 router.get('/', authMiddleware, async (req, res) => {
   //RETURNS USER BASED ON REQ.USERID RETURNED FROM AUTHMIDDLEWARE
 
-  // req.userId is available now
-//   const user = await prisma.user.findUnique({
-//     where: { id: req.userId },
-//   });
-
   const user = await prisma.user.findUnique({
     where: { id: req.userId },
     select: {
@@ -25,6 +20,8 @@ router.get('/', authMiddleware, async (req, res) => {
       lname: true,
       email: true,
       status: true,
+      bio: true,
+      avatar: true,
       createdAt: true
     }
   });
@@ -61,15 +58,19 @@ router.get('/all', authMiddleware, async (req, res) => {
 
 });
 
-router.put('/update', async (req, res) => {
+router.put('/update', authMiddleware, async (req, res) => {
 // UPDATES USER INFO
 
-  const { name, email, bio, avatar, userId } = req.body;
+  const { fname, lname, email, bio, avatar} = req.body.updatedUser;
+  console.log("UPDATED USER:", fname, lname, email, bio, avatar);
+
+  const userId = req.userId;
   const updatedUser = await prisma.user.update({
     where: { id: parseInt(userId) },
-    data: {name, email, bio, avatar }
+    data: {fname, lname, email, bio, avatar }
   });
-  console.log(updatedUser);
+  // console.log('UPDATED USER');
+  // console.log(updatedUser);
   res.json(updatedUser);
 });
 
@@ -130,6 +131,17 @@ router.delete('/:id/follow', authMiddleware, async (req, res) => {
   res.json({ success: true });
 });
 
+// Remove a follower
+router.delete('/:id/remove-follower', authMiddleware, async (req, res) => {
+  const  userToUnfollow = req.userId;
+  const currentUser = parseInt(req.params.id);
+
+  await prisma.follow.delete({
+    where: { followerId_followingId: { followerId: currentUser, followingId: userToUnfollow } }
+  });
+  res.json({ success: true });
+});
+
 // GET /users/:id/follow-status
 router.get('/:id/follow-status', authMiddleware, async (req, res) => {
   const followerId  = req.userId;             // logged in user
@@ -142,6 +154,22 @@ router.get('/:id/follow-status', authMiddleware, async (req, res) => {
   });
 
   res.json({ isFollowing: !!follow }); // true if row exists, false if not
+});
+
+
+router.get('/:id/followers', authMiddleware, async (req, res) => {
+  const userId = parseInt(req.params.id);
+
+  const followers = await prisma.follow.findMany({
+    where: { followingId: userId },
+    include: {
+      follower: {
+        select: { id: true, fname: true, lname: true, email: true, avatar: true }
+      }
+    }
+  });
+
+  res.json(followers.map(f => f.follower));
 });
 
 // Get followers/following with counts

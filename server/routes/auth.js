@@ -62,6 +62,26 @@ router.post('/login', async (req, res) => {
   res.json({ token });
 });
 
+router.put('/change-password', authMiddleware, async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  const userId = req.userId;
+
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+
+  // verify current password is correct
+  const isMatch = await bcrypt.compare(currentPassword, user.password);
+  if (!isMatch) return res.status(400).json({ message: 'Current password is incorrect' });
+
+  const hashed = await bcrypt.hash(newPassword, 10);
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: { password: hashed }
+  });
+
+  res.json({ message: 'Password updated successfully' });
+});
+
 router.put('/logout', authMiddleware, async (req,res) => {
 
     const userId = parseInt(req.userId);

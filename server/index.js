@@ -13,6 +13,7 @@ app.get("/api", (req, res) => {
 app.use('/auth', require('./routes/auth'));
 app.use('/users', require('./routes/users'));
 app.use('/posts', require('./routes/posts'));
+app.use('/comments', require('./routes/comments'));
 
 
 app.listen(5000, () => console.log("Server running on port 5000"));

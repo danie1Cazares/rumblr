@@ -25,18 +25,27 @@ PLAN OF ATTACK:
 
 
 BACK end
---> CREATE ALL USER ACTIONS
---- long term plan for profile is profile component that will take a prop (ie. activeUser), 
-if prop is true will return a different component that will allow user editing ect..
+
+PROFILE PAGE 
+--> GIT HUB Save
+ENABLE REMOVE FOLLOWER (IF ACTIVE USER)
+SHOULD BE ABLE TO MESSAGE (ADD FUNCTIONALITY AFTER MSG FEATURE FINSIHED)
+ALLOW SEARCH OF FOLLOWERS
+
+SHOW FOLLOWER MODAL
+IF ACTIVE USER ALLOW SWITCH BETWEEN USER AND SAVED posts
+ALLOW SHOW POST MODAL to open on post clicks
 
 
--FOLLOWERS/FOLLOWING DISPLAYED SHOULD UPDATE
--FEED SHOULD LOAD FOLLOWERS posts
 
----SHOULD BE ABLE TO COMMENT ON posts
---SHOULD CLICK ON A USERNAME ON POST/COMMENT/ECT AND IT SHOULD LOAD PROFILE PAGE
---SHOULDBE ABLE TO CHANGE PROFILE PIC
 -MESSENGER SYSTEM
+-REVIEW messenger app
+-SEND *to be added after messages feature is finished
+
+COMMENTS & POST FEATURES
+- USER can edit and delete own comments
+- USER can edit and delete own posts
+
 
 
 npm run dev

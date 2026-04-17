@@ -15,7 +15,6 @@
 ========================= */
 
 .post__comment {
-  padding-top: .5rem;
   display: flex;
   align-items: flex-start;
   gap: 0.6rem;

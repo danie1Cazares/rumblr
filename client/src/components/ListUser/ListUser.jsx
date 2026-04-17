@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import styles from "./ListUser.module.css"
-
+import UserLink from "../UserLink/UserLink"
 import api from '../../api';
 
 
-export default function ListUser ({avatar, name, username, actionElement}){
-
+export default function ListUser ({user, actionElement}){
+ 
 return (
 
     <>
@@ -17,13 +17,13 @@ return (
 
                 <img
                     className={styles["list-user__avatar"]}
-                    src={avatar}
-                    alt={`${name} avatar`}
+                    src={user.avatar}
+                    alt={`${user.fname} avatar`}
                 />
 
                 <div className={styles["list-user__names"]}>
-                    <div className={styles["list-user__name"]}>{name}</div>
-                    <div className={styles["list-user__username"]}>{username}</div>
+                    <UserLink user={user}/>
+                    <div className={styles["list-user__username"]}>{user.email}</div>
                 </div>
 
             </div>

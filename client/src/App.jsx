@@ -9,7 +9,7 @@ import Settings from './pages/Settings/Settings';
 // import Messages from './components/Messages';
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import Test from './components/Test';
+// import Test from './components/Test';
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
           {/* <Route path="/profile" element={<Profile />} /> */}
           <Route path="/profile/:userId" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/test" element={<Test />} />
+          {/* <Route path="/test" element={<Test />} /> */}
           {/* <Route path="*" element={<Profile />} /> */}
 
         </Routes>

@@ -25,9 +25,193 @@
 }
 
 .show-comments-modal__img {
-    flex: 2;
+        flex: 1;
+    max-width: 650px;
     object-fit: cover;
+    border-radius: 12px 0px 0px 12px;
 }
 .show-comments-modal__post {
     flex: 1;
+}
+
+
+/* POST STYLES */
+
+/* -----------------------------
+   POST BLOCK
+------------------------------ */
+.post {
+  width: 100%;
+  max-width: 425px;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  border-bottom: 1px solid #eee;
+}
+
+.post--displayCommentsView {
+    width: 100%;
+  /* max-width: 425px; */
+  min-width: 200px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.8rem;
+  overflow-y: scroll;
+  /* border-bottom: 1px solid #eee; */
+}
+
+/* -----------------------------
+   Header
+------------------------------ */
+.post__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.post__author-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden; /* ensures the image follows the circle shape */
+  background: #ddd;
+}
+
+.post__author-avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post__author-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.post__dot {
+  width: 4px;
+  height: 4px;
+  background: #aaa;
+  border-radius: 50%;
+}
+
+.post__days-old {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* -----------------------------
+   Content
+------------------------------ */
+/* Content (image container) */
+.post__content {
+  width: 100%;
+  background: #f2f2f2;
+  border-radius: 12px;
+  overflow: hidden; /* ensures image corners match container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Content image */
+.post__content-image {
+  width: 100%;
+  height: auto;
+  min-height: 600px;
+  object-fit: cover; /* keeps aspect ratio while filling */
+  display: block;
+  
+  
+}
+
+.post__comments {
+  flex: 80%;
+
+}
+
+/* -----------------------------
+   Actions
+------------------------------ */
+.post__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post__actions-left {
+  display: flex;
+  gap: 12px; /* adjust spacing */
+}
+
+.post__actions-right {
+  display: flex;
+}
+
+.post__action-like,
+.post__action-comment,
+.post__action-share,
+.post__action-save {
+  width: 24px;
+  height: 24px;
+  /* background: #ccc; */
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* -----------------------------
+   Counts / Caption / Comments
+------------------------------ */
+.post__like-count {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.post__caption {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.post__view-comments {
+  font-size: 0.85rem;
+  color: #777;
+  cursor: pointer;
+}
+
+.post__add-comments {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* column-gap: 1rem; */
+}
+
+.post__add-comments input{
+ border: none;
+}
+
+.post__add-comment-btn {
+        font-weight: 500;
+color: #0095f6;
+}
+
+
+/* .material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+} */
+
+/* .material-symbols-outlined {
+  font-variation-settings: 'FILL' 0; 
+} */
+
+.filled {
+  font-variation-settings: 'FILL' 1; /* filled */
+  
 }

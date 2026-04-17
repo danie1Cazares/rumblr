@@ -13,6 +13,7 @@ export function AuthProvider({ children }) {
 
     if (!token) {
       if (isMounted) setLoading(false);
+      console.log('No token!');
       return;
     }
 
@@ -21,15 +22,29 @@ export function AuthProvider({ children }) {
         Authorization: `Bearer ${token}`
       }
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401 || res.status === 403) {
+          localStorage.removeItem("token");
+          if (isMounted) {
+            setUser(null);
+            setLoading(false);
+          }
+          return null;
+        }
+        return res.json();
+      })
       .then(data => {
+        if (!data) return; // was a 401/403, already handled above
+
         if (isMounted) {
+          // console.log(data);
           setUser(data);
           setLoading(false);
         }
       })
       .catch(() => {
         if (isMounted) {
+          localStorage.removeItem("token");
           setUser(null);
           setLoading(false);
         }

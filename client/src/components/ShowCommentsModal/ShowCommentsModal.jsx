@@ -1,98 +1,212 @@
 
 
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from "./ShowCommentsModal.module.css";
 import Container from "../Container/Container";
 import Post from '../Post/Post';
 import api from '../../api';
+import Comment from '../Comment/Comment';
+import timeAgo from '../../utility'
+import PostCaption from '../PostCaption/PostCaption';
+import UserLink from '../UserLink/UserLink';
 
 
-export default function showComments({onExitClick}){
+export default function ShowComments({ post, onLike, onSave, onShare, onComment, loading, isLiked, isSaved, postLikes, onExitClick, onCommentCountUpdate, commentCount }) {
+  
+  const [commentText, setCommentText] = useState('');
+  const [postComments, setPostComments] = useState([]);
+  const [loadingComments, setLoadingComments] = useState([]);
+  const [replyTo, setReplyTo] = useState(null); // { commentId, username }
+  const inputRef = useRef(null);
 
-    const mockComments = [
-      {
-        id: "c1",
-        author: "jessica.dev",
-        avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-        text: "This looks amazing 🔥",
-        createdAt: "2h",
-        likes: 3
-      },
-      {
-        id: "c2",
-        author: "mark.codes",
-        avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-        text: "Clean UI, very Instagram-like 👏",
-        createdAt: "4h",
-        likes: 1
-      },
-      {
-        id: "c3",
-        author: "ui.ninja",
-        avatar: "https://randomuser.me/api/portraits/men/85.jpg",
-        text: "How did you handle the grid sizing?",
-        createdAt: "6h",
-        likes: 0
-      },
-      {
-        id: "c4",
-        author: "sara.designs",
-        avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-        text: "Love the spacing and typography 😍",
-        createdAt: "1d",
-        likes: 5
-      },
-      {
-        id: "c5",
-        author: "frontend.joe",
-        avatar: "https://randomuser.me/api/portraits/men/12.jpg",
-        text: "This would pair nicely with skeleton loaders.",
-        createdAt: "1d",
-        likes: 2
-      },
-      {
-        id: "c6",
-        author: "react.queen",
-        avatar: "https://randomuser.me/api/portraits/women/21.jpg",
-        text: "Nice use of BEM + CSS modules 💯",
-        createdAt: "2d",
-        likes: 4
+  function handleSetReply(comment) {
+    setReplyTo({ commentId: comment.id, username: comment.author.email });
+    setCommentText(`@${comment.author.email} `); // autofill input
+    inputRef.current?.focus(); // focus the input automatically
+  }
+
+  // clear replyTo if user manually clears the input
+function handleInputChange(e) {
+  setCommentText(e.target.value);
+  if (replyTo && !e.target.value.includes(`@${replyTo.username}`)) {
+    setReplyTo(null);
+  }
+}
+ 
+  async function handleAddComment() {
+    if (!commentText.trim()) return; // don't submit empty comments
+
+    const { data } = await api.post(`/posts/${post.id}/comments`, {
+      content: commentText
+    });
+
+    setCommentText('')
+    setPostComments(prev => [data, ...prev]);         // add to top of list
+    onCommentCountUpdate();
+  }
+
+  async function handleAddReply() {
+
+    if (!commentText.trim()) return; // don't submit empty comments
+
+    const { data } = await api.post(`/comments/${replyTo.commentId}/replies`, {
+      content: commentText,
+      postId: post.id
+    });
+
+
+    setCommentText('');
+    setReplyTo(null);
+
+    // update local comment replies
+
+    setPostComments(prev =>
+      prev.map(c => c.id === replyTo.commentId
+        ? { ...c, _count: { ...c._count, replies: c._count.replies + 1 }, newReply: data } // ← attach new reply to the comment
+        : c
+      )
+    );
+  
+  onCommentCountUpdate();
+  }
+
+  async function updateComments(commentId, changes) {
+
+    setPostComments(prev =>
+      prev.map(c => c.id === commentId ? { ...c, ...changes } : c)
+    );
+  }
+
+  
+  useEffect(() => {
+    let ignore = false;
+
+    async function fetchComments() {
+      // setLoadingComments(true);
+
+      const { data } = await api.get(`/posts/${post.id}/comments`);
+
+      if (!ignore) {
+
+        // only fetch if we haven't already
+        if (postComments.length === 0) {
+
+          setPostComments(data);
+          // setLoadingComments(false);
+        }
       }
-    ];
-    
-    
-    return (
-        
+    }
 
-        <Container modifier={"show-comments"}>  
+    fetchComments();
+  return () => { ignore = true; };
+}, []);
 
-            <div className={styles["show-comments-modal__exit"]} onClick={onExitClick}>+</div>
 
-            <div className={styles["show-comments-modal"]}>
-                <img className={styles["show-comments-modal__img"]} src="https://foundersbeta.com/wp-content/uploads/2024/09/Startup-Memes-Paying-Customer.png" alt="" />
-                <Post 
-                    displayCommentsView = {true}
-                    className={styles["show-comments-modal__post"]}
-                    authorAvatar="https://images.squarespace-cdn.com/content/v1/631ba8eed2196a6795698665/3690ca61-6a9d-4c93-a2a5-83a5f2aa1648/2022-08-16-Trinet-0540-Martinez-Juan.jpg"
-                    authorName="Mr. Rumblr"
-                    daysOld="2"
-                    contentImage="https://foundersbeta.com/wp-content/uploads/2024/09/Startup-Memes-Paying-Customer.png"
-                    likeCount="4,392"
-                    caption="Beautiful day outside."
-                    commentsCount="120"
-                    comments={mockComments}
-                    onLike={() => console.log("Liked")}
-                    onComment={() => console.log("Comment")}
-                    onShare={() => console.log("Share")}
-                    onSave={() => console.log("Saved")}
-                />   
+  return (
+    <Container modifier={"show-comments"}>
+
+      <div className={styles["show-comments-modal__exit"]} onClick={onExitClick}>+</div>
+
+      <div className={styles["show-comments-modal"]}>
+        <img className={styles["show-comments-modal__img"]} src={post.imageUrl} alt="" />
+        <div className={styles["post--displayCommentsView"]}>
+
+          <div className={styles["post__header"]}>
+            <div className={styles["post__author-avatar"]}>
+              <img
+                className={styles["post__author-avatar-image"]}
+                src={post.author.avatar}
+                alt={`${post.author.fname} ${post.author.lname} avatar`}
+              />
             </div>
 
-    
+            <div className={styles["post__author-name"]}>
+              {/* {`${post.author.fname} ${post.author.lname}`} */}
+              <UserLink user={post.author}/>
+            </div>
+          </div>
 
 
-        </Container>
+          <div className={styles["post__caption"]}>
+            <PostCaption post={post}/>
+          </div>
 
-    )
+          <div className={styles["post__comments"]}>
+            {postComments.length === 0 ? (
+              <div className={styles["post__comments-empty"]}>
+                No comments yet. Be the first 💬
+              </div>
+            ) : (
+              postComments.map((postComment) => (
+                <Comment
+                  key={postComment.id}
+                  comment={postComment}
+                  updateComments={updateComments}
+                  handleSetReply={handleSetReply}
+                  newReply={postComment.newReply ?? null}
+                />
+              ))
+            )}
+          </div>
+
+
+
+          <div className={styles["post__actions"]}>
+
+            {/* Left group */}
+
+            <div className={styles["post__actions-left"]}>
+              {isLiked ?
+                <div className={styles["post__action-like"]} onClick={onLike} disabled={loading.like}><span className={`material-symbols-outlined ${styles.filled}`}>thumb_up</span></div>
+                :
+                <div className={styles["post__action-like"]} onClick={onLike} disabled={loading.like}><span class="material-symbols-outlined">thumb_up</span></div>
+              }
+              <div>{postLikes}</div>
+              <div className={styles["post__action-comment"]} onClick={onComment}><span class="material-symbols-outlined">mode_comment</span></div>
+              <div>{commentCount}</div>
+              <div className={styles["post__action-share"]} onClick={onShare}><span class="material-symbols-outlined">send</span></div>
+            </div>
+
+            {/* Right (Save button) */}
+
+      
+            {isSaved ?
+              <div className={styles["post__actions-right"]}>
+                <div className={styles["post__action-save"]} onClick={onSave} disabled={loading.save}><span className={`material-symbols-outlined ${styles.filled}`}>bookmark</span></div>
+              </div>
+              :
+              <div className={styles["post__actions-right"]}>
+                <div className={styles["post__action-save"]} onClick={onSave} disabled={loading.save}><span className="material-symbols-outlined">bookmark</span></div>
+              </div>
+            }
+
+          </div>
+
+          <div className={styles["post__days-old"]}>
+            {timeAgo(post.createdAt)}
+          </div>
+
+          <div className={styles["post__add-comments"]}>
+            <div className={styles["post__author-avatar"]}>
+              <img
+                className={styles["post__author-avatar-image"]}
+                src={post.author.avatar}
+                alt={`${post.author.fname} ${post.author.lname} avatar`}
+              />
+            </div>
+
+
+            <input type="text" ref={inputRef} name="add-comment" id="add-comment" placeholder="Add a comment..." value={commentText} onChange={handleInputChange} onKeyDown={e => e.key === 'Enter' && (replyTo ? handleAddReply() : handleAddComment())}/>
+            
+            <div className={styles["post__add-comment-btn"]} onClick={replyTo ? handleAddReply : handleAddComment}>Post</div>
+     
+
+          </div>
+          
+        </div>
+      </div >
+    </Container>
+  )
 }
+
